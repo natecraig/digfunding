@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigFunding | Archaeology Project Funding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="brand">
+        <span aria-hidden="true">🗺️</span>
+        <div>
+          <h1>DigFunding</h1>
+          <p>Connecting archaeologists with global supporters.</p>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#discover">Discover</a></li>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="discover">
+      <div class="container hero-content">
+        <div>
+          <h2>Support archaeological discoveries around the world</h2>
+          <p>
+            DigFunding is a home for archaeologists to share their fieldwork, conservation,
+            and storytelling projects, and for history enthusiasts to fund the future of the past.
+          </p>
+        </div>
+        <div class="hero-highlight" role="status">
+          <strong>50+</strong>
+          <span>Active projects seeking supporters right now.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters">
+      <div class="container">
+        <h2>Find a project to support</h2>
+        <form id="filter-form" class="filter-form" novalidate>
+          <label class="filter-group">
+            <span>Search</span>
+            <input type="search" id="search-input" placeholder="Find by project, archaeologist, or keyword" />
+          </label>
+          <label class="filter-group">
+            <span>Topic</span>
+            <select id="topic-select">
+              <option value="">All topics</option>
+            </select>
+          </label>
+          <label class="filter-group">
+            <span>Location</span>
+            <select id="location-select">
+              <option value="">All locations</option>
+            </select>
+          </label>
+          <label class="filter-group">
+            <span>Start year</span>
+            <input type="number" id="year-input" placeholder="e.g. 2025" min="1900" max="2100" />
+          </label>
+          <button type="submit" class="primary">Apply filters</button>
+          <button type="reset" class="secondary" id="reset-button">Reset</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="projects" aria-live="polite">
+      <div class="container">
+        <div id="project-count" class="project-count" role="status"></div>
+        <div id="projects-grid" class="projects-grid" aria-label="Project results"></div>
+      </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+      <div class="container">
+        <h2>How DigFunding supports archaeology</h2>
+        <div class="steps">
+          <article>
+            <h3>1. Create a compelling project page</h3>
+            <p>
+              Archaeologists present their research goals, timelines, and budgets. They can upload
+              galleries, field updates, and exclusive posts that unlock for backers at chosen tiers.
+            </p>
+          </article>
+          <article>
+            <h3>2. Offer exclusive rewards</h3>
+            <p>
+              Reward tiers can include virtual site tours, behind-the-scenes journals, early access to
+              excavation reports, or live Q&amp;A sessions for dedicated supporters.
+            </p>
+          </article>
+          <article>
+            <h3>3. Engage a global community</h3>
+            <p>
+              Enthusiasts follow their favorite digs, fund new discoveries, and receive regular updates
+              on progress, findings, and field challenges directly from the archaeologists.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container">
+        <h2>Frequently asked questions</h2>
+        <div class="faq-grid">
+          <article>
+            <h3>How do archaeologists share exclusive content?</h3>
+            <p>
+              Project creators can publish tiered updates, upload downloadable field notes, or schedule
+              private livestreams. Supporters unlock content automatically when they back at the specified
+              reward level.
+            </p>
+          </article>
+          <article>
+            <h3>What types of rewards can be offered?</h3>
+            <p>
+              Rewards range from public thank-you notes and postcards to custom 3D models, limited-edition
+              prints, or opportunities to join a dig day virtually. Each tier highlights what supporters
+              receive in return for their contribution.
+            </p>
+          </article>
+          <article>
+            <h3>How can I track project progress?</h3>
+            <p>
+              Follow projects to receive email updates and notifications whenever new field notes,
+              discoveries, or exclusive content posts go live.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="current-year"></span> DigFunding. Celebrating archaeology worldwide.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

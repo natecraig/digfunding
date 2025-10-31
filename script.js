@@ -1080,10 +1080,121 @@ function populateFilters() {
   });
 }
 
+const profileImageCache = new Map();
+
+const profilePalettes = [
+  { background: "#f8e7d0", accent: "#c3732b", secondary: "#f1c480", detail: "#2f2618", sky: "#ecd2a8" },
+  { background: "#f2efe4", accent: "#946327", secondary: "#d9b56d", detail: "#35281b", sky: "#d5c6a3" },
+  { background: "#f5dcbf", accent: "#b16622", secondary: "#f0b988", detail: "#3b2a1e", sky: "#d9a86c" },
+  { background: "#efe3cf", accent: "#8d5a2b", secondary: "#d4b074", detail: "#2d2318", sky: "#cdbb91" },
+  { background: "#f3e7d3", accent: "#b76f30", secondary: "#e6c58e", detail: "#3a2c1d", sky: "#d7b68c" }
+];
+
+const profileVariants = ["portrait", "action"];
+
+function hashString(value) {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+function createPortraitSvg(name, palette) {
+  const initials = name
+    .split(" ")
+    .map((part) => part.charAt(0))
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-hidden="true">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${palette.sky}" />
+          <stop offset="100%" stop-color="${palette.background}" />
+        </linearGradient>
+      </defs>
+      <rect width="120" height="120" fill="url(#bg)" />
+      <circle cx="60" cy="60" r="46" fill="${palette.background}" opacity="0.85" />
+      <path d="M40 82c6-8 12-12 20-12s14 4 20 12l-12 22H52z" fill="${palette.secondary}" />
+      <path d="M44 60c0-16 8-26 16-26s16 10 16 26-8 24-16 24-16-8-16-24z" fill="${palette.detail}" opacity="0.82" />
+      <path d="M38 54l10-22h24l10 22-8-6H46z" fill="${palette.accent}" />
+      <text x="60" y="110" font-family="'Cinzel', serif" font-size="20" fill="${palette.detail}" text-anchor="middle" opacity="0.55">${initials}</text>
+    </svg>
+  `;
+}
+
+function createActionSvg(palette) {
+  return `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-hidden="true">
+      <rect width="120" height="120" fill="${palette.sky}" />
+      <path d="M0 90h120v30H0z" fill="${palette.background}" />
+      <path d="M12 94c18-12 36-18 58-10s32 2 38-6v42H12z" fill="${palette.secondary}" opacity="0.7" />
+      <path d="M56 70l12-12 12 14-8 6z" fill="${palette.accent}" opacity="0.85" />
+      <circle cx="70" cy="44" r="10" fill="${palette.detail}" opacity="0.82" />
+      <path d="M62 54l-16 12 10 28 12-8 6 18 10-4-8-24 18-14-6-8-14 10z" fill="${palette.detail}" />
+      <path d="M24 102l26-14 6 12-18 10H24z" fill="${palette.accent}" opacity="0.75" />
+      <path d="M92 38l12-6" stroke="${palette.accent}" stroke-width="4" stroke-linecap="round" />
+      <path d="M18 38l18 6" stroke="${palette.accent}" stroke-width="4" stroke-linecap="round" opacity="0.6" />
+    </svg>
+  `;
+}
+
+function generateProfileImageData(name) {
+  const hash = hashString(name);
+  const palette = profilePalettes[hash % profilePalettes.length];
+  const variant = profileVariants[hash % profileVariants.length];
+  const svg = variant === "portrait" ? createPortraitSvg(name, palette) : createActionSvg(palette);
+  const encoded = btoa(svg);
+  const descriptions = {
+    portrait: "Professional portrait photograph",
+    action: "Action photograph of the researcher on site"
+  };
+
+  return {
+    src: `data:image/svg+xml;base64,${encoded}`,
+    description: descriptions[variant]
+  };
+}
+
+function getProfileImage(name) {
+  if (profileImageCache.has(name)) {
+    return profileImageCache.get(name);
+  }
+  const imageData = generateProfileImageData(name);
+  profileImageCache.set(name, imageData);
+  return imageData;
+}
+
 function createProjectCard(project) {
   const article = document.createElement("article");
   article.className = "project-card";
   article.tabIndex = 0;
+
+  const { src, description } = getProfileImage(project.archaeologist);
+
+  const researcher = document.createElement("div");
+  researcher.className = "researcher";
+
+  const avatar = document.createElement("img");
+  avatar.src = src;
+  avatar.alt = `${description} of ${project.archaeologist}`;
+  avatar.loading = "lazy";
+
+  const researcherDetails = document.createElement("div");
+  const nameEl = document.createElement("p");
+  nameEl.className = "researcher-name";
+  nameEl.textContent = project.archaeologist;
+
+  const roleEl = document.createElement("p");
+  roleEl.className = "researcher-role";
+  roleEl.textContent = "Lead archaeologist";
+
+  researcherDetails.append(nameEl, roleEl);
+  researcher.append(avatar, researcherDetails);
 
   const title = document.createElement("h3");
   title.textContent = project.title;
@@ -1099,14 +1210,11 @@ function createProjectCard(project) {
     <span>${new Date(project.startDate).getFullYear()} field season</span>
   `;
 
-  const archaeologist = document.createElement("p");
-  archaeologist.innerHTML = `<strong>Lead archaeologist:</strong> ${project.archaeologist}`;
-
   const funding = document.createElement("div");
   funding.innerHTML = `
     <strong>${formatCurrency(project.currentFunding)}</strong> raised of ${formatCurrency(
-    project.goal
-  )} goal
+      project.goal
+    )} goal
   `;
 
   const progress = Math.min(Math.round((project.currentFunding / project.goal) * 100), 100);
@@ -1127,7 +1235,7 @@ function createProjectCard(project) {
     rewardsList.append(item);
   });
 
-  article.append(title, meta, summary, archaeologist, funding, progressBar, exclusive, rewardsList);
+  article.append(researcher, title, meta, summary, funding, progressBar, exclusive, rewardsList);
   return article;
 }
 

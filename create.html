@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create a Project — Dig Funding</title>
+  <link rel="icon" href="assets/logo.svg">
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.svg" alt="Dig Funding logo" width="160" height="44"/>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Explore</a>
+        <a href="create.html" aria-current="page">Create a Project</a>
+        <a href="#" id="my-backing-link">My Backing</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap create">
+    <h1>Create a Project (Demo)</h1>
+    <p class="muted">This is a front‑end demo for GitHub Pages. Your project is saved locally in your browser and appears in Explore.</p>
+    <form id="createForm" class="form">
+      <label>Title <input required name="title" type="text" placeholder="Title of your project"/></label>
+      <label>Lead Researcher <input required name="leadResearcher" type="text" placeholder="Your full name"/></label>
+      <label>Organization <input required name="organization" type="text" placeholder="Affiliation"/></label>
+      <label>Country <input required name="country" type="text" placeholder="Country"/></label>
+      <label>Location Detail <input required name="locationDetail" type="text" placeholder="Site name / region"/></label>
+      <label>Topics (comma‑separated) <input required name="topics" type="text" placeholder="e.g., Egyptology, Bioarchaeology"/></label>
+      <div class="row">
+        <label>Start Date <input required name="startDate" type="date"/></label>
+        <label>End Date <input required name="endDate" type="date"/></label>
+      </div>
+      <label>Funding Goal (USD) <input required name="goal" type="number" min="1000" step="100"/></label>
+      <label>Short Description <textarea required name="shortDescription" rows="2" placeholder="One‑line summary"></textarea></label>
+      <label>Full Description <textarea required name="fullDescription" rows="6" placeholder="Tell your story…"></textarea></label>
+
+      <details class="details">
+        <summary>Rewards (optional)</summary>
+        <p class="muted">Add up to 5 rewards. Leave blank to use defaults.</p>
+        <div id="rewardsInputs"></div>
+        <button type="button" class="btn btn-ghost" id="addReward">+ Add reward</button>
+      </details>
+
+      <button type="submit" class="btn">Save Locally</button>
+    </form>
+
+    <div id="createSuccess" class="success hidden" role="status">
+      <h3>Saved!</h3>
+      <p>Your project has been saved in this browser. Visit <a href="index.html">Explore</a> to see it live.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="left">
+        <img src="assets/logo.svg" alt="" width="120" height="33"/>
+        <p class="small">© <span id="year"></span> Dig Funding</p>
+      </div>
+      <div class="right">
+        <a href="LICENSE" class="small">MIT License</a>
+        <a href="README.md" class="small">Docs</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/create.js"></script>
+</body>
+</html>

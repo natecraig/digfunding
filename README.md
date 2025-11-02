@@ -1,6 +1,6 @@
-# DigFunding
+# Dig Funding
 
-DigFunding is a static web application that helps archaeologists share their projects and connect with supporters who are eager to fund new discoveries. Inspired by platforms like Kickstarter and Patreon, the experience is tailored specifically for archaeology with global projects, exclusive content for backers, and tiered rewards.
+Dig Funding is a static web application that helps archaeologists share their projects and connect with supporters who are eager to fund new discoveries. Inspired by platforms like Kickstarter and Patreon, the experience is tailored specifically for archaeology with global projects, exclusive content for backers, and tiered rewards.
 
 ## Features
 

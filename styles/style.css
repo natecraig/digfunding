@@ -60,6 +60,11 @@ a:focus {
   font-weight: 700;
 }
 
+.brand-logo {
+  width: 48px;
+  height: auto;
+}
+
 .brand h1 {
   font-size: 1.5rem;
   margin: 0;

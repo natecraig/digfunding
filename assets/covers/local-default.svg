@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
-      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#8E7D5E"/><stop offset="1" stop-color="#A4572B"/></linearGradient></defs>
-      <rect width="320" height="180" fill="url(#g)"/>
-      <text x="16" y="36" font-size="18" fill="#F5E6C8" font-family="Georgia,serif">Your Local Project</text>
-    </svg>

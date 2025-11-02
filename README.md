@@ -21,9 +21,10 @@ Because the site is entirely static, you can also deploy it directly through Git
 ## Project structure
 
 ```
-├── index.html    # Main application shell and layout
-├── style.css     # Global styles and responsive design rules
-└── script.js     # Sample project data and interactive filtering logic
+├── index.html         # Main application shell and layout
+├── assets/            # Static media such as the future logo.png
+├── scripts/script.js  # Sample project data and interactive filtering logic
+└── styles/style.css   # Global styles and responsive design rules
 ```
 
 ## Deployment on GitHub Pages
